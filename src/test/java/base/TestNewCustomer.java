@@ -1,0 +1,280 @@
+package base;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.AssertJUnit;
+
+public class TestNewCustomer {
+    private WebDriver driver;
+    public void BeforeClass() {
+        System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.get("http://www.demo.guru99.com/V4/");
+        WebElement element = driver.findElement(By.xpath("/html/body/form/table/tbody/tr[1]/td[2]/input"));
+        element.sendKeys("mngr331968");
+        WebElement elements = driver.findElement(By.xpath("/html/body/form/table/tbody/tr[2]/td[2]/input"));
+        elements.sendKeys("gurYtug");
+        WebElement button=driver.findElement(By.name("btnLogin"));
+        button.click();
+        System.out.println("TC01: New Customer Successful");
+    }
+    public void TC01(){
+        WebElement customer = driver.findElement(By.xpath("/html/body/div[3]/div/ul/li[2]/a"));
+        customer.click();
+        WebElement element = driver.findElement(By.name("name"));
+        element.sendKeys("Trangg");
+        WebElement genderElement = driver.findElement(By.name("rad1"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click(); ", genderElement);
+        WebElement dateOfBirthElement = driver.findElement(By.id("dob"));
+        dateOfBirthElement.sendKeys("01");
+        dateOfBirthElement.sendKeys("04");
+        dateOfBirthElement.sendKeys("2000");
+        WebElement address = driver.findElement(By.name("addr"));
+        address.sendKeys("Da Nang");
+        WebElement city = driver.findElement(By.name("city"));
+        city.sendKeys("Da Nang");
+        WebElement state = driver.findElement(By.name("state"));
+        state.sendKeys("Ngu Hanh Son");
+        WebElement pin = driver.findElement(By.name("pinno"));
+        pin.sendKeys("111111");
+        WebElement telephone = driver.findElement(By.name("telephoneno"));
+        telephone.sendKeys("02652656565");
+        WebElement email = driver.findElement(By.name("emailid"));
+        email.sendKeys("trang11@gmail.com");
+        WebElement password = driver.findElement(By.name("password"));
+        password.sendKeys("Trang.010420");
+        WebElement submit = driver.findElement(By.name("sub"));
+        submit.click();
+    }
+    public void TC02() {
+        WebElement customer = driver.findElement(By.xpath("/html/body/div[3]/div/ul/li[2]/a"));
+        customer.click();
+        WebElement element = driver.findElement(By.name("name"));
+        element.sendKeys("");
+        WebElement genderElement = driver.findElement(By.name("rad1"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click(); ", genderElement);
+        WebElement dateOfBirthElement = driver.findElement(By.id("dob"));
+        dateOfBirthElement.sendKeys("01");
+        dateOfBirthElement.sendKeys("04");
+        dateOfBirthElement.sendKeys("2000");
+        WebElement address = driver.findElement(By.name("addr"));
+        address.sendKeys("Da Nang");
+        WebElement city = driver.findElement(By.name("city"));
+        city.sendKeys("Da Nang");
+        WebElement state = driver.findElement(By.name("state"));
+        state.sendKeys("Ngu Hanh Son");
+        WebElement pin = driver.findElement(By.name("pinno"));
+        pin.sendKeys("111111");
+        WebElement telephone = driver.findElement(By.name("telephoneno"));
+        telephone.sendKeys("02652656565");
+        WebElement email = driver.findElement(By.name("emailid"));
+        email.sendKeys("trang1@gmail.com");
+        WebElement password = driver.findElement(By.name("password"));
+        password.sendKeys("Trang.010420");
+        WebElement submit = driver.findElement(By.name("sub"));
+        submit.click();
+        String result = driver.switchTo().alert().getText();
+        driver.switchTo().alert().accept();
+//        AssertJUnit.assertEquals(result, "please fill all fields");
+        String error = driver.findElement(By.id("message")).getText();
+        AssertJUnit.assertEquals(error, "Customer name must not be blank");
+        System.out.println("TC02: "+ error);
+
+    }
+    //*[@id="message"]
+    public void TC03() {
+        WebElement customer = driver.findElement(By.xpath("/html/body/div[3]/div/ul/li[2]/a"));
+        customer.click();
+        WebElement element = driver.findElement(By.name("name"));
+        element.sendKeys("Trang123");
+        WebElement genderElement = driver.findElement(By.name("rad1"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click(); ", genderElement);
+        WebElement dateOfBirthElement = driver.findElement(By.id("dob"));
+        dateOfBirthElement.sendKeys("01");
+        dateOfBirthElement.sendKeys("04");
+        dateOfBirthElement.sendKeys("2000");
+        WebElement address = driver.findElement(By.name("addr"));
+        address.sendKeys("Da Nang");
+        WebElement city = driver.findElement(By.name("city"));
+        city.sendKeys("Da Nang");
+        WebElement state = driver.findElement(By.name("state"));
+        state.sendKeys("Ngu Hanh Son");
+        WebElement pin = driver.findElement(By.name("pinno"));
+        pin.sendKeys("111111");
+        WebElement telephone = driver.findElement(By.name("telephoneno"));
+        telephone.sendKeys("02652656565");
+        WebElement email = driver.findElement(By.name("emailid"));
+        email.sendKeys("trang1@gmail.com");
+        WebElement password = driver.findElement(By.name("password"));
+        password.sendKeys("Trang.010420");
+        WebElement submit = driver.findElement(By.name("sub"));
+        submit.click();
+        String result = driver.switchTo().alert().getText();
+        driver.switchTo().alert().accept();
+        AssertJUnit.assertEquals(result, "please fill all fields");
+        String error = driver.findElement(By.id("message")).getText();
+        AssertJUnit.assertEquals(error, "Numbers are not allowed");
+        System.out.println("TC03: "+ error);
+    }
+    public void TC04() {
+        WebElement customer = driver.findElement(By.xpath("/html/body/div[3]/div/ul/li[2]/a"));
+        customer.click();
+        WebElement element = driver.findElement(By.name("name"));
+        element.sendKeys("Trang123@#$$");
+        WebElement genderElement = driver.findElement(By.name("rad1"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click(); ", genderElement);
+        WebElement dateOfBirthElement = driver.findElement(By.id("dob"));
+        dateOfBirthElement.sendKeys("01");
+        dateOfBirthElement.sendKeys("04");
+        dateOfBirthElement.sendKeys("2000");
+        WebElement address = driver.findElement(By.name("addr"));
+        address.sendKeys("Da Nang");
+        WebElement city = driver.findElement(By.name("city"));
+        city.sendKeys("Da Nang");
+        WebElement state = driver.findElement(By.name("state"));
+        state.sendKeys("Ngu Hanh Son");
+        WebElement pin = driver.findElement(By.name("pinno"));
+        pin.sendKeys("111111");
+        WebElement telephone = driver.findElement(By.name("telephoneno"));
+        telephone.sendKeys("02652656565");
+        WebElement email = driver.findElement(By.name("emailid"));
+        email.sendKeys("trang1@gmail.com");
+        WebElement password = driver.findElement(By.name("password"));
+        password.sendKeys("Trang.010420");
+        WebElement submit = driver.findElement(By.name("sub"));
+        submit.click();
+        String result = driver.switchTo().alert().getText();
+        driver.switchTo().alert().accept();
+        AssertJUnit.assertEquals(result, "please fill all fields");
+        String error = driver.findElement(By.id("message")).getText();
+        AssertJUnit.assertEquals(error, "Special characters are not allowed");
+        System.out.println("TC04: " + error);
+    }
+    public void TC05() {
+        WebElement customer = driver.findElement(By.xpath("/html/body/div[3]/div/ul/li[2]/a"));
+        customer.click();
+        WebElement element = driver.findElement(By.name("name"));
+        element.sendKeys(" Trang");
+        WebElement genderElement = driver.findElement(By.name("rad1"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click(); ", genderElement);
+        WebElement dateOfBirthElement = driver.findElement(By.id("dob"));
+        dateOfBirthElement.sendKeys("01");
+        dateOfBirthElement.sendKeys("04");
+        dateOfBirthElement.sendKeys("2000");
+        WebElement address = driver.findElement(By.name("addr"));
+        address.sendKeys("Da Nang");
+        WebElement city = driver.findElement(By.name("city"));
+        city.sendKeys("Da Nang");
+        WebElement state = driver.findElement(By.name("state"));
+        state.sendKeys("Ngu Hanh Son");
+        WebElement pin = driver.findElement(By.name("pinno"));
+        pin.sendKeys("111111");
+        WebElement telephone = driver.findElement(By.name("telephoneno"));
+        telephone.sendKeys("02652656565");
+        WebElement email = driver.findElement(By.name("emailid"));
+        email.sendKeys("trang1@gmail.com");
+        WebElement password = driver.findElement(By.name("password"));
+        password.sendKeys("Trang.010420");
+        WebElement submit = driver.findElement(By.name("sub"));
+        submit.click();
+        String result = driver.switchTo().alert().getText();
+        driver.switchTo().alert().accept();
+        AssertJUnit.assertEquals(result, "please fill all fields");
+        String error = driver.findElement(By.id("message")).getText();
+        AssertJUnit.assertEquals(error, "First character can not have space");
+        System.out.println("TC05: " + error);
+    }
+    public void TC06() {
+        WebElement customer = driver.findElement(By.xpath("/html/body/div[3]/div/ul/li[2]/a"));
+        customer.click();
+        WebElement element = driver.findElement(By.name("name"));
+        element.sendKeys("Trangg");
+        WebElement genderElement = driver.findElement(By.name("rad1"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click(); ", genderElement);
+        WebElement dateOfBirthElement = driver.findElement(By.id("dob"));
+        dateOfBirthElement.sendKeys("01");
+        dateOfBirthElement.sendKeys("04");
+        dateOfBirthElement.sendKeys("2000");
+        WebElement address = driver.findElement(By.name("addr"));
+        address.sendKeys("");
+        WebElement city = driver.findElement(By.name("city"));
+        city.sendKeys("Da Nang");
+        WebElement state = driver.findElement(By.name("state"));
+        state.sendKeys("Ngu Hanh Son");
+        WebElement pin = driver.findElement(By.name("pinno"));
+        pin.sendKeys("111111");
+        WebElement telephone = driver.findElement(By.name("telephoneno"));
+        telephone.sendKeys("02652656565");
+        WebElement email = driver.findElement(By.name("emailid"));
+        email.sendKeys("trang1@gmail.com");
+        WebElement password = driver.findElement(By.name("password"));
+        password.sendKeys("Trang.010420");
+        WebElement submit = driver.findElement(By.name("sub"));
+        submit.click();
+        String result = driver.switchTo().alert().getText();
+        driver.switchTo().alert().accept();
+        AssertJUnit.assertEquals(result, "please fill all fields");
+        String error = driver.findElement(By.id("message3")).getText();
+        AssertJUnit.assertEquals(error, "Address Field must not be blank");
+        System.out.println("TC06: " + error);
+    }
+    public void TC07() {
+        WebElement customer = driver.findElement(By.xpath("/html/body/div[3]/div/ul/li[2]/a"));
+        customer.click();
+        WebElement element = driver.findElement(By.name("name"));
+        element.sendKeys("Trangg");
+        WebElement genderElement = driver.findElement(By.name("rad1"));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click(); ", genderElement);
+        WebElement dateOfBirthElement = driver.findElement(By.id("dob"));
+        dateOfBirthElement.sendKeys("01");
+        dateOfBirthElement.sendKeys("04");
+        dateOfBirthElement.sendKeys("2000");
+        WebElement address = driver.findElement(By.name("addr"));
+        address.sendKeys(" Da Nang");
+        WebElement city = driver.findElement(By.name("city"));
+        city.sendKeys("Da Nang");
+        WebElement state = driver.findElement(By.name("state"));
+        state.sendKeys("Ngu Hanh Son");
+        WebElement pin = driver.findElement(By.name("pinno"));
+        pin.sendKeys("111111");
+        WebElement telephone = driver.findElement(By.name("telephoneno"));
+        telephone.sendKeys("02652656565");
+        WebElement email = driver.findElement(By.name("emailid"));
+        email.sendKeys("trang1@gmail.com");
+        WebElement password = driver.findElement(By.name("password"));
+        password.sendKeys("Trang.010420");
+        WebElement submit = driver.findElement(By.name("sub"));
+        submit.click();
+        String result = driver.switchTo().alert().getText();
+        driver.switchTo().alert().accept();
+        AssertJUnit.assertEquals(result, "please fill all fields");
+        String error = driver.findElement(By.id("message3")).getText();
+        AssertJUnit.assertEquals(error, "First character can not have space");
+        System.out.println("TC07: " + error);
+    }
+    public static void main(String[] arg) throws InterruptedException {
+        TestNewCustomer test = new TestNewCustomer();
+        test.BeforeClass();
+        test.TC02();
+        Thread.sleep(5000);
+        test.TC03();
+        Thread.sleep(5000);
+        test.TC04();
+        Thread.sleep(5000);
+        test.TC05();
+        Thread.sleep(5000);
+        test.TC06();
+        Thread.sleep(5000);
+        test.TC07();
+        Thread.sleep(5000);
+        test.TC01();
+//        test.AfterClass();
+
+    }
+//    public void AfterClass() {
+//        driver.quit();
+//    }
+}
